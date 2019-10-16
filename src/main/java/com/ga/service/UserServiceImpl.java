@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	// TODO: Decide what DataType/Value to return for found user
 	public User signup(User user) {
 		return userDao.signup(user);
 	}
@@ -29,5 +30,9 @@ public class UserServiceImpl implements UserService{
 		return userDao.login(user).getUserId();
 	}
 
+	@Override
+	public Long updateUser(User user, String username) {
+		return userDao.updateUser(user, username).getUserId();
+	}
 
 }

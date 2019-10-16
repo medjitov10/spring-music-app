@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao{
 			session.beginTransaction();
 			session.save(user);
 			session.getTransaction().commit();
-			
+			// TODO: catch statement return existingUser placeholder parse exception
 		} finally {
 			session.close();
 		}
@@ -73,9 +73,26 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public User updateUser(User user, Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public User updateUser(User user, String username) {
+		User savedUser = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+// TODO: session.get user obj by username instead -- Reason to avoid giving out userId information
+			savedUser = session.get(User.class, username);
+			savedUser.setPassword(user.getPassword());
+
+			session.update(savedUser);
+
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+
+		return savedUser;
 	}
 
 	@Override
