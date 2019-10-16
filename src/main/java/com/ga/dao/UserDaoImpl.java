@@ -33,14 +33,43 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public User signup(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			session.save(user);
+			session.getTransaction().commit();
+			
+		} finally {
+			session.close();
+		}
+		return user;
 	}
 
 	@Override
 	public User login(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		User foundUser = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+
+		try {
+			session.beginTransaction();
+			// String Concat - likely faster, but less readable
+//			foundUser = (User) session.createQuery("FROM User u WHERE u.username='" + 
+//					user.getUsername() + "' AND u.password='" + 
+//					user.getPassword()+ "'").getSingleResult();
+			// StringFormat -- slower, but more readable format
+			String queryString = String.format(
+					"FROM User u WHERE u.username='%s' AND u.password='%s'", 
+					user.getUsername(), 
+					user.getPassword()
+					);
+			foundUser = (User) session.createQuery(queryString).getSingleResult();
+		} finally {
+			session.close();
+		}
+		
+		return foundUser;
 	}
 
 	@Override

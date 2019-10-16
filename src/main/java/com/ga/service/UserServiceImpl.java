@@ -19,5 +19,15 @@ public class UserServiceImpl implements UserService{
 		return userDao.listUsers();
 	}
 
+	@Override
+	public User signup(User user) {
+		return userDao.signup(user);
+	}
+
+	@Override
+	public Long login(User user) {
+		return userDao.login(user).getUserId();
+	}
+
 
 }
