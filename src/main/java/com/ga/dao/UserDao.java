@@ -9,7 +9,7 @@ public interface UserDao {
 	public List<User> listUsers();
 	public User signup(User user);
 	public User login(User user);
-	public User updateUser(User user, String username);
+	public User updateUser(User user, Long userId);
 	public User deleteUser(Long userId);
 	public User getUserByUsername(String username);
 	public User addSong(String username, int songId);

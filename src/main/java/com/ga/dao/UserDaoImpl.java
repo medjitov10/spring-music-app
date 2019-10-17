@@ -63,9 +63,8 @@ public class UserDaoImpl implements UserDao{
 //					user.getPassword()+ "'").getSingleResult();
 			// StringFormat -- slower, but more readable format
 			String queryString = String.format(
-					"FROM User u WHERE u.username='%s' AND u.password='%s'",
-					user.getUsername(),
-					user.getPassword()
+					"FROM User u WHERE u.username='%s'",
+					user.getUsername()
 					);
 			foundUser = (User) session.createQuery(queryString).getSingleResult();
 		} finally {
@@ -76,7 +75,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public User updateUser(User user, String username) {
+	public User updateUser(User user, Long userId) {
 		User savedUser = null;
 
 		Session session = sessionFactory.getCurrentSession();
@@ -84,8 +83,7 @@ public class UserDaoImpl implements UserDao{
 		try {
 			session.beginTransaction();
 
-// TODO: session.get user obj by username instead -- Reason to avoid giving out userId information
-			savedUser = session.get(User.class, username);
+			savedUser = session.get(User.class, userId);
 			savedUser.setPassword(user.getPassword());
 
 			session.update(savedUser);
@@ -136,6 +134,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	public User addSong(String username, int songId) {
+		// TODO: Implement PUT Song on User
 		return null;
 	}
 

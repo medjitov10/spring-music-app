@@ -9,9 +9,9 @@ import com.ga.entity.User;
 public interface UserService extends UserDetailsService{
 
 	public List<User> listUsers();
-	public User signup(User user);
-	public Long login(User user);
-	public Long updateUser(User user, String username);
+	public String signup(User user);
+	public String login(User user);
+	public User updateUser(User user, Long userId);
 	public User deleteUser(Long userId);
 	public User addSong(String username, int songId);
 
