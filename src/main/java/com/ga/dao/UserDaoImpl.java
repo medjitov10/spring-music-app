@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ga.entity.User;
+import com.ga.entity.UserRole;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -18,7 +19,6 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	UserRoleDao userRoleDao;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsers() {
 		List<User> allUsers = null;
@@ -64,15 +64,18 @@ public class UserDaoImpl implements UserDao{
 		try {
 			session.beginTransaction();
 			// String Concat - likely faster, but less readable
-//			foundUser = (User) session.createQuery("FROM User u WHERE u.username='" +
+			foundUser = (User) session.createQuery("FROM User u WHERE u.username='" +
+					user.getUsername() + "'").getSingleResult();
 //					user.getUsername() + "' AND u.password='" +
 //					user.getPassword()+ "'").getSingleResult();
+					
+
 			// StringFormat -- slower, but more readable format
-			String queryString = String.format(
-					"FROM User u WHERE u.username='%s'",
-					user.getUsername()
-					);
-			foundUser = (User) session.createQuery(queryString).getSingleResult();
+//			String queryString = String.format(
+//					"FROM User u WHERE u.username='%s'",
+//					user.getUsername()
+//					);
+//			foundUser = (User) session.createQuery(queryString).getSingleResult();
 		} finally {
 			session.close();
 		}
@@ -131,7 +134,8 @@ public class UserDaoImpl implements UserDao{
 
 		try {
 			session.beginTransaction();
-			user = (User)session.createQuery(queryString).uniqueResult();
+//			user = (User)session.createQuery(queryString).uniqueResult();
+			user = (User)session.createQuery("From User u WHERE u.username = '" + username+ "'").uniqueResult();
 
 		} finally {
 			session.close();

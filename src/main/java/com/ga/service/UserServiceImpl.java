@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService{
 	private List<GrantedAuthority> getGrantedAuthorities(User user) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-		authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
+//		authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
 
 		return authorities;
 	}

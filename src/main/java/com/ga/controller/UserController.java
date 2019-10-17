@@ -3,8 +3,10 @@ package com.ga.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ga.entity.JwtResponse;
 import com.ga.entity.User;
 import com.ga.service.UserService;
 
@@ -32,8 +34,8 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestBody User user) {
-		return userService.login(user);
+	public ResponseEntity<?> login(@RequestBody User user) {
+		return ResponseEntity.ok(new JwtResponse(userService.login(user)));
 	}
 
 	@PutMapping("/{userId}")
