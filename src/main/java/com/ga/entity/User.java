@@ -1,6 +1,9 @@
 package com.ga.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +28,18 @@ public class User {
 	private UserRole userRole;
 
 // TODO: @OneToOne userProfile
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "user_song", joinColumns = {
+			@JoinColumn(name = "user_id") }, inverseJoinColumns = @JoinColumn(name = "song_id"))
+	private List<Song> songs;
 
-//	@ManyToMany(fetch =FetchType.LAZY,
-//	cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-//	@JoinTable(name ="user_song",
-//	joinColumns = {@JoinColumn(name="user_id")},
-//	inverseJoinColumns = @JoinColumn(name = "song_id"))
-//    private List<Song> songs;
+	public List<Song> getSongs() {
+		return songs;
+	}
+
+	public void setSongs(List<Song> songs) {
+		this.songs = songs;
+	}
 
 	public User() {}
 
@@ -67,12 +75,12 @@ public class User {
 		this.userRole = userRole;
 	}
 
-//	public List<Song> addSong(Song song) {
-//		if(song == null) {
-//			songs = new ArrayList<>();
-//		}
-//		songs.add(song);
-//
-//		return songs;
-//	}
+	public List<Song> addSong(Song song) {
+		if(song == null) {
+			songs = new ArrayList<>();
+		}
+		songs.add(song);
+
+		return songs;
+	}
 }

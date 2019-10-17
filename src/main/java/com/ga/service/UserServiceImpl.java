@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User addSong(String username, int songId) {
-		return null;
+		return userDao.addSong(username, songId);
 	}
 
 	@Override

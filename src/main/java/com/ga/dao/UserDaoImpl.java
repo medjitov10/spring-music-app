@@ -8,11 +8,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ga.entity.Song;
 import com.ga.entity.User;
 import com.ga.entity.UserRole;
 
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -64,11 +65,10 @@ public class UserDaoImpl implements UserDao{
 		try {
 			session.beginTransaction();
 			// String Concat - likely faster, but less readable
-			foundUser = (User) session.createQuery("FROM User u WHERE u.username='" +
-					user.getUsername() + "'").getSingleResult();
+			foundUser = (User) session.createQuery("FROM User u WHERE u.username='" + user.getUsername() + "'")
+					.getSingleResult();
 //					user.getUsername() + "' AND u.password='" +
 //					user.getPassword()+ "'").getSingleResult();
-					
 
 			// StringFormat -- slower, but more readable format
 //			String queryString = String.format(
@@ -128,14 +128,12 @@ public class UserDaoImpl implements UserDao{
 		User user = null;
 
 		Session session = sessionFactory.getCurrentSession();
-		String queryString = String.format(
-				"From User u WHERE u.username = '%s'", username
-				);
+		String queryString = String.format("From User u WHERE u.username = '%s'", username);
 
 		try {
 			session.beginTransaction();
 //			user = (User)session.createQuery(queryString).uniqueResult();
-			user = (User)session.createQuery("From User u WHERE u.username = '" + username+ "'").uniqueResult();
+			user = (User) session.createQuery("From User u WHERE u.username = '" + username + "'").uniqueResult();
 
 		} finally {
 			session.close();
@@ -144,8 +142,22 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	public User addSong(String username, int songId) {
+		User user = null;
+		Song song = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.beginTransaction();
+			user = (User) session.createQuery("FROM User WHERE username = '" + username + "'")
+					.uniqueResult();
+			song = session.get(Song.class, songId);
+			user.addSong(song);
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
 		// TODO: Implement PUT Song on User
-		return null;
+		return user;
 	}
 
 }

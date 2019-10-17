@@ -43,8 +43,13 @@ public class UserController {
 		return userService.updateUser(user, userId);
 	}
 
-	@DeleteMapping("/{userId")
+	@DeleteMapping("/{userId}")
 	public User deleteUser(@PathVariable Long userId) {
 		return userService.deleteUser(userId);
+	}
+	
+	@PutMapping("/{username}/song/{songId}")
+	public User addSong(@PathVariable String username, @PathVariable int songId) {
+		return userService.addSong(username, songId);
 	}
 }
