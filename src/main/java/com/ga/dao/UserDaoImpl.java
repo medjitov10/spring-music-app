@@ -2,6 +2,7 @@ package com.ga.dao;
 
 import java.util.List;
 
+import com.ga.entity.UserRole;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	// TODO: @Autowired UserRole
+	@Autowired
+	UserRoleDao userRoleDao;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -36,6 +38,10 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public User signup(User user) {
+		String roleName = user.getUserRole().getName();
+		UserRole userRole = userRoleDao.getRole(roleName);
+		user.setUserRole(userRole);
+
 		Session session = sessionFactory.getCurrentSession();
 
 		try {
