@@ -12,5 +12,6 @@ public interface UserDao {
 	public User updateUser(User user, String username);
 	public User deleteUser(Long userId);
 	public User getUserByUsername(String username);
+	public User addSong(String username, int songId);
 
 }

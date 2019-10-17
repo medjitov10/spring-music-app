@@ -21,6 +21,12 @@ public class User {
 
 	@Column(name="password", nullable = false)
 	private String password;
+	
+// TODO: @ManyToOne UserRole	
+	
+// TODO: @OneToOne userProfile
+	
+// TODO: @ManyToMany List<Song> songs
 
 	public User() {}
 

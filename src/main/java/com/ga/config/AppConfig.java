@@ -22,18 +22,18 @@ public class AppConfig {
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		
+
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setPackagesToScan("com.ga");
 		sessionFactory.setHibernateProperties(hibernateProperties());
-		
+
 		return sessionFactory;
 	}
 
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		
+
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/spring_music_app");
 
@@ -45,18 +45,18 @@ public class AppConfig {
 
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		hibernateProperties.setProperty("hibernate.current_session_context_class", "thread");
-		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create"); // create-drop update
+//		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create"); // create-drop update
 		hibernateProperties.setProperty("hibernate.show_sql", "true");
-		
+
 		return hibernateProperties;
 	}
 
 	@Bean
 	public HibernateTransactionManager getTransactionManager() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-		
+
 		transactionManager.setSessionFactory(sessionFactory().getObject());
-		
+
 		return transactionManager;
 	}
 
