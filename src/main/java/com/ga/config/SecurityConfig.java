@@ -17,7 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan("com.ga")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -41,15 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         @SuppressWarnings("deprecation")
         User.UserBuilder users = User.withDefaultPasswordEncoder();
 
-        auth.inMemoryAuthentication().withUser(users.username("test").password("test").roles("ADMIN"));
-        auth.inMemoryAuthentication().withUser(users.username("dba").password("dba").roles("DBA"));
+//        auth.inMemoryAuthentication().withUser(users.username("test").password("test").roles("ADMIN"));
+//        auth.inMemoryAuthentication().withUser(users.username("dba").password("dba").roles("DBA"));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user/signup/**", "/user/login/**", "/user/hello").permitAll()
+                .antMatchers("/user/signup/**", "/user/login/**").permitAll()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/role/**").hasRole("DBA")
                 .antMatchers("/song/**").hasRole("ADMIN")
