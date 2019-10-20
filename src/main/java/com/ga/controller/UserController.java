@@ -1,4 +1,4 @@
-package com.ga.controller;
+package java.controller;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class UserController {
 	public User deleteUser(@PathVariable Long userId) {
 		return userService.deleteUser(userId);
 	}
-	
+
 	@PutMapping("/{username}/song/{songId}")
 	public User addSong(@PathVariable String username, @PathVariable int songId) {
 		return userService.addSong(username, songId);

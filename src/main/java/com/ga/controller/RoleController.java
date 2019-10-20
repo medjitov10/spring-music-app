@@ -1,9 +1,8 @@
-package com.ga.controller;
+package java.controller;
 
 import com.ga.entity.UserRole;
 import com.ga.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
