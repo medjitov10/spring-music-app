@@ -76,9 +76,10 @@ public class User {
 	}
 
 	public List<Song> addSong(Song song) {
-		if(song == null) {
+		if(songs == null) {
 			songs = new ArrayList<>();
 		}
+		
 		songs.add(song);
 
 		return songs;

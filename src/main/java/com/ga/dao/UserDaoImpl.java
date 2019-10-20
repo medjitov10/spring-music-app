@@ -41,8 +41,8 @@ public class UserDaoImpl implements UserDao {
 	public User signup(User user) {
 		String roleName = user.getUserRole().getName();
 		UserRole userRole = userRoleDao.getRole(roleName);
+		
 		user.setUserRole(userRole);
-
 		Session session = sessionFactory.getCurrentSession();
 
 		try {
@@ -128,7 +128,7 @@ public class UserDaoImpl implements UserDao {
 		User user = null;
 
 		Session session = sessionFactory.getCurrentSession();
-		String queryString = String.format("From User u WHERE u.username = '%s'", username);
+//		String queryString = String.format("From User u WHERE u.username = '%s'", username);
 
 		try {
 			session.beginTransaction();
