@@ -1,4 +1,4 @@
-package java.controller;
+package com.ga.controller;
 
 import java.util.List;
 

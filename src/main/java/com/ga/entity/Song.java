@@ -60,5 +60,8 @@ public class Song {
 		this.length = length;
 	}
 
+	public String toString(){
+		return this.getArtist() + ":" + this.getTitle();
+	}
 
 }
