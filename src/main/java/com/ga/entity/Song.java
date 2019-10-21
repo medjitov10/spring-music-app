@@ -61,7 +61,7 @@ public class Song {
 	}
 
 	public String toString(){
-		return this.getArtist() + ":" + this.getTitle();
+		return this.getArtist() + " - " + this.getTitle() + " : " + this.getLength();
 	}
 
 }

@@ -5,14 +5,17 @@ import com.ga.dao.SongDaoImpl;
 import com.ga.entity.Song;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SongServiceTest {
 
     @Mock
@@ -23,11 +26,6 @@ public class SongServiceTest {
 
     @InjectMocks
     private Song song;
-
-    @Before
-    public void initMocks() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void addSong_Song_Success() throws Exception {
@@ -49,23 +47,19 @@ public class SongServiceTest {
         assertEquals(tempSong.getTitle(), song.getTitle());
         assertEquals(tempSong.getLength(), song.getLength());
     }
-    // TODO: figure out how exception handling works through teh chain to return null -- currently passes, but shouldn't?
     @Test
-    public void addSong_Song_Error() throws Exception {
+    public void deleteSong_Song_Success() throws Exception {
         Song song = new Song();
         song.setId(9);
-        song.setArtist(null);
+        song.setArtist("Nyamano");
         song.setTitle("Wandering all night");
         song.setLength(4.20);
+        System.out.println(song.toString());
 
-        when(songDao.createSong(any())).thenReturn(null);
+        when(songDao.deleteSong(9)).thenReturn(song);
+        Song deletedSong = songDao.deleteSong(9);
 
-        Song tempSong = songService.addSong(song);
+        assertEquals(song, deletedSong);
 
-//        assertEquals(expected, actual);
-          assertEquals( null, tempSong);
-//        assertEquals(tempSong.getArtist(), song.getArtist());
-//        assertEquals(tempSong.getTitle(), song.getTitle());
-//        assertEquals(tempSong.getLength(), song.getLength());
     }
 }

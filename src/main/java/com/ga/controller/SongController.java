@@ -33,7 +33,7 @@ public class SongController {
         try {
             return ResponseEntity.ok(songService.deleteSong(songId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("API error: song "+ songId +" could not be deleted");
+            return ResponseEntity.badRequest().body("API error: song id: "+ songId +" could not be deleted");
         }
     }
 }
